@@ -1,0 +1,29 @@
+name: taskarific
+dev.edition: 2024
+
+type: rails
+
+up:
+  - packages:
+      - sqlite3
+  - ruby
+  - bundler
+  - node:
+      npm: true
+      version: v16.13.0
+      packages:
+        - "."
+
+commands:
+  server:
+    run: bin/dev
+  console: bin/rails console
+  test:
+    syntax:
+      argument: file
+      optional: args...
+    run: bin/test
+  test-system:
+    run: bundle exec rails test:system
+  rubocop:
+    run: bin/rubocop

@@ -5,8 +5,14 @@ class Task < ApplicationRecord
   validates_presence_of :name, :order
 
   before_validation :set_order
+  before_validation :set_default_status
 
   default_scope { order(:order) }
+
+  enum :status, {
+    new: "new",
+    completed: "completed"
+  }, suffix: "status"
 
   private
 
@@ -20,5 +26,9 @@ class Task < ApplicationRecord
 
   def set_order
     self.order = siblings.maximum(:order).to_i + 1
+  end
+
+  def set_default_status
+    self.status ||= Task.statuses["new"]
   end
 end

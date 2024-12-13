@@ -24,11 +24,14 @@ class Task < ApplicationRecord
   private
 
   def siblings
-    if parent
-      parent&.subtasks || Task.none
-    else
-      Task.where(parent: nil)
-    end
+    all_siblings =
+      if parent
+        parent&.subtasks || Task.none
+      else
+        Task.where(parent: nil)
+      end
+
+    all_siblings.where.not(id: id)
   end
 
   def set_order

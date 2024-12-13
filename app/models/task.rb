@@ -35,7 +35,7 @@ class Task < ApplicationRecord
   end
 
   def set_order
-    self.order = siblings.maximum(:order).to_i + 1
+    self.order ||= siblings.maximum(:order).to_i + 1
   end
 
   def set_default_status

@@ -29,13 +29,23 @@
 
   <div id="new-tasks" class="min-w-full mb-8">
     <h2 class="text-2xl mb-2">Incomplete tasks</h2>
-    <ul>
-      <% @tasks.not_completed_status.each do |task| %>
-        <li>
-          <%= link_to task.name, task, class: "inline-block" %>
-        </li>
+
+    <% @tasks.not_completed_status.tap do |incomplete_tasks| %>
+      <% Task.priorities.keys.each do |priority_name| %>
+        <% incomplete_tasks.send(:"prioritize_#{priority_name}").tap do |tasks| %>
+          <section>
+            <h3 class="text-xl my-2"><%= priority_name.humanize %></h3>
+            <ul>
+              <% tasks.each do |task| %>
+                <li>
+                  <%= link_to task.name, task, class: "inline-block" %>
+                </li>
+              <% end %>
+            </ul>
+          </section>
+        <% end %>
       <% end %>
-    </ul>
+    <% end %>
   </div>
 
   <div id="completed-tasks" class="min-w-full">

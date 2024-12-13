@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_11_055047) do
+ActiveRecord::Schema[8.0].define(version: 2024_12_13_180559) do
   create_table "tasks", force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -21,6 +21,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_11_055047) do
     t.datetime "updated_at", null: false
     t.integer "order", null: false
     t.string "tracking_url"
+    t.integer "priority", default: 1
     t.index ["parent_id"], name: "index_tasks_on_parent_id"
   end
 end

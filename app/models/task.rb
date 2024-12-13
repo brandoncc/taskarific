@@ -14,6 +14,13 @@ class Task < ApplicationRecord
     completed: "completed"
   }, suffix: "status"
 
+  enum :priority, {
+    today: 1,
+    tomorrow: 200,
+    soon: 300,
+    later: 400
+  }, prefix: "prioritize"
+
   private
 
   def siblings

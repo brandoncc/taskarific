@@ -37,8 +37,8 @@
             <h3 class="text-xl my-2"><%= priority_name.humanize %></h3>
             <ul>
               <% tasks.each do |task| %>
-                <li>
-                  <%= link_to task.name, task, class: "inline-block" %>
+                <li class="my-2">
+                  <%= render 'tasks/preview', task: task %>
                 </li>
               <% end %>
             </ul>
@@ -53,7 +53,7 @@
     <ul>
       <% @tasks.completed_status.each do |task| %>
         <li>
-          <%= link_to task.name, task, class: "inline-block" %>
+          <%= render 'tasks/preview', task: task %>
         </li>
       <% end %>
     </ul>

@@ -42,8 +42,11 @@ class TasksController < ApplicationController
   def update
     respond_to do |format|
       if @task.update(task_params)
-        format.html { redirect_back_or_to root_url, notice: "Task was successfully updated." }
-        format.json { render :show, status: :ok, location: @task }
+        format.html { redirect_back_or_to root_url, notice: "Task '#{@task.name}' was successfully updated." }
+        format.json { render :show, status: :ok, location: @task, notice: "Task '#{@task.name}' was successfully updated." }
+        format.turbo_stream do
+          flash.now[:notice] = "Task '#{@task.name}' was successfully updated."
+        end
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @task.errors, status: :unprocessable_entity }

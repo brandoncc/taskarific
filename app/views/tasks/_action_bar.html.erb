@@ -1,11 +1,4 @@
 <div class="flex flex-row gap-2">
-  <% if task.completed_status? %>
-    <%= button_to task, action: :patch, params: { task: { status: Task.statuses["new"] } } do %>
-      <%= render 'icons/add' %>
-    <% end %>
-  <% else %>
-    <%= button_to task, action: :patch, params: { task: { status: Task.statuses["completed"] } } do %>
-      <%= render 'icons/check' %>
-    <% end %>
-  <% end %>
+  <%= render 'tasks/action_bar/status', task: task %>
+  <%= render 'tasks/action_bar/priority', task: task %>
 </div>

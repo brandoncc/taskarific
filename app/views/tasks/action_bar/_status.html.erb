@@ -1,0 +1,9 @@
+<% if task.completed_status? %>
+  <%= button_to task, action: :patch, params: { task: { status: Task.statuses["new"] } } do %>
+    <%= render 'icons/add' %>
+  <% end %>
+<% else %>
+  <%= button_to task, action: :patch, params: { task: { status: Task.statuses["completed"] } } do %>
+    <%= render 'icons/check' %>
+  <% end %>
+<% end %>

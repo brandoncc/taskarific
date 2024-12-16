@@ -1,0 +1,2 @@
+<%= turbo_stream.replace "notice", partial: "notice" %>
+<%= turbo_stream.replace "tasks", partial: "tasks/list", locals: { tasks: Task.all} %>

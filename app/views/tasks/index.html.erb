@@ -1,7 +1,5 @@
 <div class="w-full">
-  <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
-  <% end %>
+  <%= render 'notice' %>
 
   <% content_for :title, "Tasks" %>
 
@@ -27,35 +25,5 @@
     </div>
   <% end %>
 
-  <div id="new-tasks" class="min-w-full mb-8">
-    <h2 class="text-2xl mb-2">Incomplete tasks</h2>
-
-    <% @tasks.not_completed_status.tap do |incomplete_tasks| %>
-      <% Task.priorities.keys.each do |priority_name| %>
-        <% incomplete_tasks.send(:"prioritize_#{priority_name}").tap do |tasks| %>
-          <section>
-            <h3 class="text-xl my-2"><%= priority_name.humanize %></h3>
-            <ul>
-              <% tasks.each do |task| %>
-                <li class="my-2">
-                  <%= render 'tasks/preview', task: task %>
-                </li>
-              <% end %>
-            </ul>
-          </section>
-        <% end %>
-      <% end %>
-    <% end %>
-  </div>
-
-  <div id="completed-tasks" class="min-w-full">
-    <h2 class="text-2xl mb-2">Completed tasks</h2>
-    <ul>
-      <% @tasks.completed_status.each do |task| %>
-        <li>
-          <%= render 'tasks/preview', task: task %>
-        </li>
-      <% end %>
-    </ul>
-  </div>
+  <%= render 'tasks/list', tasks: @tasks %>
 </div>

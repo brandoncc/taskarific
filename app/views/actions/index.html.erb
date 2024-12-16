@@ -1,0 +1,7 @@
+<div class="flex flex-row gap-2">
+  <%= render 'tasks/action_bar/status', task: task %>
+
+  <% unless task.completed_status? %>
+    <%= render 'tasks/action_bar/priority', task: task %>
+  <% end %>
+</div>

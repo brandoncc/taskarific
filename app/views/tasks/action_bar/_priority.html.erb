@@ -1,0 +1,5 @@
+<%= link_to edit_task_action_path(task, 'priority') do %>
+  <%= render 'components/badge', color: 'orange' do %>
+    p<%= Task.priorities.keys.index(task.priority) %>
+  <% end %>
+<% end %>

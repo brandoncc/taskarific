@@ -1,9 +1,11 @@
-<div>
-  <%= link_to task.name, task, class: "inline-block" %>
-</div>
-
-<%= turbo_frame_tag [dom_id(task), :action_bar] do %>
-  <div class="mt-2">
-    <%= render template: 'actions/index', locals: { task: task } %>
+<div data-controller="task-preview" data-action="mouseover->task-preview#mouseEnter mouseout->task-preview#mouseLeave">
+  <div>
+    <%= link_to task.name, task, class: "inline-block" %>
   </div>
-<% end %>
+
+  <%= turbo_frame_tag [dom_id(task), :action_bar] do %>
+    <div class="mt-2 hidden" data-task-preview-target="actionBar">
+      <%= render template: 'actions/index', locals: { task: task } %>
+    </div>
+  <% end %>
+</div>

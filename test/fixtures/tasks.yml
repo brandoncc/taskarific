@@ -1,17 +1,19 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
-  description: MyText
+new:
+  name: Do some things
+  description: In order to do some things, there are requirements!
   parent: one
-  status: MyString
+  status: new
   completed: false
   order: 1
+  priority: today
 
-two:
-  name: MyString
-  description: MyText
+completed:
+  name: Something previously completed
+  description: The requirements must have been met.
   parent: two
-  status: MyString
-  completed: false
+  status: completed
+  completed: true
   order: 2
+  priority: today

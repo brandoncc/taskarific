@@ -1,6 +1,7 @@
 class Task < ApplicationRecord
   belongs_to :parent, class_name: "Task", foreign_key: :parent_id, optional: true
   has_many :subtasks, class_name: "Task", foreign_key: :parent_id, inverse_of: :parent
+  has_many :events, as: :eventable
 
   validates_presence_of :name, :order
 
@@ -9,6 +10,8 @@ class Task < ApplicationRecord
   attribute :status, default: -> { Task.statuses["new"] }
 
   default_scope { order(:order) }
+
+  before_update :create_change_events
 
   enum :status, {
     new: "new",
@@ -37,5 +40,43 @@ class Task < ApplicationRecord
 
   def set_order
     self.order ||= siblings.maximum(:order).to_i + 1
+  end
+
+  def create_change_events
+    create_name_change_event
+    create_description_change_event
+    create_status_change_event
+    create_priority_change_event
+    create_tracking_url_change_event
+  end
+
+  def create_name_change_event
+    return unless name_changed?
+
+    events.create!(description: "[#{name_was}][name]: -> '#{name}'")
+  end
+
+  def create_description_change_event
+    return unless description_changed?
+
+    events.create!(description: "[#{name}][description]: changed")
+  end
+
+  def create_status_change_event
+    return unless status_changed?
+
+    events.create!(description: "[#{name}][status]: #{status_was} -> #{status}")
+  end
+
+  def create_priority_change_event
+    return unless priority_changed?
+
+    events.create!(description: "[#{name}][priority]: #{priority_was} -> #{priority}")
+  end
+
+  def create_tracking_url_change_event
+    return unless tracking_url_changed?
+
+    events.create!(description: "[#{name}][tracking_url]: #{tracking_url_was} -> #{tracking_url}")
   end
 end

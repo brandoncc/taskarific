@@ -10,30 +10,6 @@
   <h1 class="font-bold text-4xl mb-4">Timeline</h1>
 
   <div class="flex flex-col gap-10">
-    <% @timeline.events_grouped_by_date.each do |date, events|%>
-      <section>
-        <h2 class="block text-xl text-slate-500">
-          <%= date.strftime("%a, %b %d, %Y") %>
-        </h2>
-
-        <ul class="flex flex-col gap-4">
-          <% events.group_by(&:eventable).each do |eventable, events| %>
-            <li>
-              <h3 class="block text-lg text-slate-500">
-                <%= eventable.name %>
-              </h3>
-
-              <ul class="text-slate-800">
-                <% events.each do |event| %>
-                  <li>
-                    <%= event.description %>
-                  </li>
-                <% end %>
-              </ul>
-            </li>
-          <% end %>
-        </ul>
-      </section>
-    <% end %>
+    <%= render 'events_by_date', date_groups: @timeline.events_grouped_by_date %>
   </div>
 </div>

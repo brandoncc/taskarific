@@ -1,0 +1,9 @@
+<% date_groups.each do |date, events|%>
+  <section>
+    <h2 class="block text-xl text-slate-300">
+      <%= date.strftime("%a, %b %d, %Y") %>
+    </h2>
+
+    <%= render 'events_by_eventable', events: events %>
+  </section>
+<% end %>

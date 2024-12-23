@@ -1,4 +1,6 @@
 class Timeline
+  ORPHANED_EVENTS_GROUP_NAME = "Events for deleted items"
+
   def events
     Event.all.order(created_at: :desc)
   end

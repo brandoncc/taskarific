@@ -10,11 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_21_235610) do
+ActiveRecord::Schema[8.0].define(version: 2024_12_22_231318) do
   create_table "events", force: :cascade do |t|
     t.text "description"
-    t.string "eventable_type", null: false
-    t.integer "eventable_id", null: false
+    t.string "eventable_type"
+    t.integer "eventable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["eventable_type", "eventable_id"], name: "index_events_on_eventable"

@@ -16,10 +16,20 @@
           <%= date.strftime("%a, %b %d, %Y") %>
         </h2>
 
-        <ul class="text-slate-800">
-          <% events.each do |event| %>
+        <ul class="flex flex-col gap-4">
+          <% events.group_by(&:eventable).each do |eventable, events| %>
             <li>
-              <%= event.description %>
+              <h3 class="block text-lg text-slate-500">
+                <%= eventable.name %>
+              </h3>
+
+              <ul class="text-slate-800">
+                <% events.each do |event| %>
+                  <li>
+                    <%= event.description %>
+                  </li>
+                <% end %>
+              </ul>
             </li>
           <% end %>
         </ul>

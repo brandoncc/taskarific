@@ -44,7 +44,7 @@ class Task < ApplicationRecord
   end
 
   def create_creation_events
-    events.create!(description: "[#{name}]: created")
+    events.create!(description: "task created")
   end
 
   def create_change_events
@@ -58,30 +58,30 @@ class Task < ApplicationRecord
   def create_name_change_event
     return unless name_changed?
 
-    events.create!(description: "[#{name_was}][name]: -> '#{name}'")
+    events.create!(description: "name: #{name_was} -> '#{name}'")
   end
 
   def create_description_change_event
     return unless description_changed?
 
-    events.create!(description: "[#{name}][description]: changed")
+    events.create!(description: "description changed")
   end
 
   def create_status_change_event
     return unless status_changed?
 
-    events.create!(description: "[#{name}][status]: #{status_was} -> #{status}")
+    events.create!(description: "status: #{status_was} -> #{status}")
   end
 
   def create_priority_change_event
     return unless priority_changed?
 
-    events.create!(description: "[#{name}][priority]: #{priority_was} -> #{priority}")
+    events.create!(description: "priority: #{priority_was} -> #{priority}")
   end
 
   def create_tracking_url_change_event
     return unless tracking_url_changed?
 
-    events.create!(description: "[#{name}][tracking_url]: #{tracking_url_was} -> #{tracking_url}")
+    events.create!(description: "tracking_url: #{tracking_url_was} -> #{tracking_url}")
   end
 end

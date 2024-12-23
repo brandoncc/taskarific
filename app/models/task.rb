@@ -11,6 +11,7 @@ class Task < ApplicationRecord
 
   default_scope { order(:order) }
 
+  after_create :create_creation_events
   before_update :create_change_events
 
   enum :status, {
@@ -40,6 +41,10 @@ class Task < ApplicationRecord
 
   def set_order
     self.order ||= siblings.maximum(:order).to_i + 1
+  end
+
+  def create_creation_events
+    events.create!(description: "[#{name}]: created")
   end
 
   def create_change_events

@@ -13,6 +13,7 @@ class Task < ApplicationRecord
 
   after_create :create_creation_events
   before_update :create_change_events
+  after_destroy :clarify_orphaned_events
 
   enum :status, {
     new: "new",
@@ -83,5 +84,11 @@ class Task < ApplicationRecord
     return unless tracking_url_changed?
 
     events.create!(description: "tracking_url: #{tracking_url_was} -> #{tracking_url}")
+  end
+
+  def clarify_orphaned_events
+    events.each do |event|
+      event.update_column(:description, "[#{name}] #{event.description}")
+    end
   end
 end

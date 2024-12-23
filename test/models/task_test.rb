@@ -62,4 +62,14 @@ class TaskTest < ActiveSupport::TestCase
       task = Task.create!(name: "the new task")
     end
   end
+
+  test "destroying prepends task name to all orphaned events" do
+    task = Task.create!(name: "the new task")
+    event = task.events.first
+
+    refute_includes event.description, task.name
+
+    task.destroy
+    assert_includes event.reload.description, task.name
+  end
 end

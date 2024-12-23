@@ -61,7 +61,15 @@ class TaskTest < ActiveSupport::TestCase
     assert_difference -> { Event.count }, 1 do
       task = Task.create!(name: "the new task")
     end
+  end
 
-    assert_includes task.events.last.description, "the new task"
+  test "destroying prepends task name to all orphaned events" do
+    task = Task.create!(name: "the new task")
+    event = task.events.first
+
+    refute_includes event.description, task.name
+
+    task.destroy
+    assert_includes event.reload.description, task.name
   end
 end

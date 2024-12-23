@@ -1,0 +1,11 @@
+<ul class="flex flex-col gap-4">
+  <% events.group_by(&:eventable).each do |eventable, events| %>
+    <li>
+      <h3 class="block text-lg text-slate-500">
+        <%= eventable&.name || Timeline::ORPHANED_EVENTS_GROUP_NAME %>
+      </h3>
+
+      <%= render 'plain_event_list', events: events %>
+    </li>
+  <% end %>
+</ul>

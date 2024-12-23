@@ -54,4 +54,14 @@ class TaskTest < ActiveSupport::TestCase
     assert_includes @task.events.last.description, "starting URL"
     assert_includes @task.events.last.description, "new URL"
   end
+
+  test "creating task creates an event" do
+    task = nil
+
+    assert_difference -> { Event.count }, 1 do
+      task = Task.create!(name: "the new task")
+    end
+
+    assert_includes task.events.last.description, "the new task"
+  end
 end
